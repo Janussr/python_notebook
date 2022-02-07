@@ -1,16 +1,11 @@
 import math
 
 #A. Iterate a list of names to return a list of the names starting with H
-names = ["Harald", "Ellen", "Herold", "Kurt", "Hans"]
-newlist = []
+names = ["Harald", "Ellen", "Herold", "Kurt", "Hans","Johanne"]
+print(names)
 
-for x in names:
-  if "H" in x:
-    newlist.append(x)
-
-#print(newlist)
-
-
+result_list1 = [element for element in names if element[0].lower() == "h"]
+print(result_list1)
 
 
 #B. in one line create a list of the numbers 1-100 to the power of 3
@@ -84,3 +79,25 @@ dice_comb = [8, 6, 7, 8, 5, 10, 6, 8, 3, 7, 9, 4, 9, 11, 11, 6, 7, 9, 10, 4, 6, 
 dice_dict = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}
 
 print({element: (dice_comb.count(element) / 36)*100 for element in dice_dict})
+
+
+
+
+
+
+
+
+    #Create 5 list comprehensions to solve the following 5 problems:
+        #Iterate a list of names to return a list of the names starting with H
+        #In one line create a list of the numbers 1-100 to the power of 3
+       # Iterate a list of names to create a list of tuples where the tuples first value is the length of the name and the second is the name
+      #  Iterate over each character in a string and get only those that are nummeric
+     #   Using only a list comprehension wrapped in set() get all possible combination from throwing 2 dice (hint use 2 for loops in a single list comprehension)
+
+    #Create 2 dictionary comprehensions to solve the following:
+   #     Iterate a list of names and create a dictionary where key is the name and value is the length of the name
+  #      Iterate a list of numbers and create a dictionary with {key:value} being {number:squareroot_of_number}
+
+ #   Extra assignment (This one goes beyond what is covered in the course notebooks. So only do it if you want an extra challenge).
+#        Progammatically using loops create a small program to produce a dictionary with all the 2 dice throw combinations as keys (eg: 2,3,4...etc) and their likelyhood in percent as values
+
