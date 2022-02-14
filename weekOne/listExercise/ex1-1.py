@@ -4,7 +4,7 @@ import math
 names = ["Harald", "Ellen", "Herold", "Kurt", "Hans","Johanne"]
 print(names)
 
-result_list1 = [element for element in names if element[0].lower() == "h"]
+result_list1 = [element for element in names if element[0].upper() == "H"]
 print(result_list1)
 
 
