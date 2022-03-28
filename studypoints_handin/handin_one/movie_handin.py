@@ -18,7 +18,7 @@ def highest_grossing_world():
 
 #2. Create a pie chart that shows the distribution of Licenses (PG, R, M and so on)
 def pie_chart_distribution():
-    distribtuion = df_movies["License"].value_counts().to_dict()
+    distribtuion = df_movies["License"].value_counts().to_dict()          #convert to dictionary to get key value pair, to make the pie chart. (key = license, value = pg, pg-13 etc)      
     return distribtuion
 
 
@@ -26,8 +26,9 @@ def pie_chart_distribution():
 #3. Get the percentage of PG rated movies between 2001 and 2015
 def percent_pg_movies():
     df1 = df_movies[['License','Release Date']]                                                             #Creating our dataFrame and selecting the only two collums we need.
-    df1[['Release Date', 'Year']] = df1['Release Date'].str.split(',', 1, expand=True)                      #Strip month and date from year on the comma.
-    df1_filter = df1[(df1['Year'] >= " 2001") & (df1['Year'] < " 2015")]                                    #Sorts the dataframe to only include data in a specific year range.
+    df1[['Release Date', 'Year']] = df1['Release Date'].str.split(',', 1, expand=True)                      #Strip month and date from year on the comma.  (First half creates a new colum "year"(the reason we type releaste date is to tell where to place the colum year). Expand true, tells all data to go to the new colum "year")
+    df1_filter = df1[(df1['Year'] >= " 2001") & (df1['Year'] < " 2015")]                                    #Sorts the dataframe to only include data in a specific year range 2001-2015.   -> # normalize = true --> data_norm = (data - data.min())/ (data.max() - data.min())
+
     df1 = df1_filter['License'].value_counts(normalize=True).mul(100).round(1).astype(str) + '%'            #Counts all the different licenses and convert that into percentage.
     print('PG movies between 2001 & 2015 = ' + df1.iloc[1])       
 
@@ -40,16 +41,16 @@ def calculate_avg():
     #Hvor meget har hvert genre tjent
     #del op på hver genre, og summér dens indtjening
 
-    df_sale = df_movies.groupby(by = ["Genre"])['World Sales (in $)'].sum().reset_index()
-    df_count = df_movies.groupby(by = ["Genre"])['World Sales (in $)'].count().reset_index()
-    df_average = (df_sale["World Sales (in $)"] / df_count["World Sales (in $)"]).reset_index()
-    df_average['Genre'] = df_count["Genre"]
+    df2 = df1['Genre'].str.replace(",", "")
+    df2 = df1['Genre'].str.get_dummies(sep=",")
 
-    print(df_count)
+
+
+    print(df2)
 
 
 
 if __name__ == "__main__":
-   # highest_grossing_world()
-    #print(pie_chart_distribution())
-    print(percent_pg_movies())
+    print(highest_grossing_world())       #Assignment 1 - uncomment
+    #print(pie_chart_distribution())       #Assignment 2 - check pie chart.ipynb
+    #print(calculate_avg())                #Assignment 3 - uncomment
