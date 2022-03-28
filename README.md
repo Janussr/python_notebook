@@ -1,7 +1,7 @@
 # python_notebook
 
 
-StudyPoint assignment .1 - path -> studypoints_handin/handin_one, movie_handin.py, pie chart.ipynb.
+StudyPoint assignment .1 - path -> my_notebooks -> studypoints_handin -> handin_one -> movie_handin.py, pie chart.ipynb.
 
 
 1.Hvad for en opgave du har løst
