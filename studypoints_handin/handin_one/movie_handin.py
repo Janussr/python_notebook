@@ -51,6 +51,7 @@ def calculate_avg():
 
 
 if __name__ == "__main__":
-    print(highest_grossing_world())       #Assignment 1 - uncomment
+    #print(highest_grossing_world())       #Assignment 1 - uncomment
     #print(pie_chart_distribution())       #Assignment 2 - check pie chart.ipynb
-    #print(calculate_avg())                #Assignment 3 - uncomment
+    print(percent_pg_movies())                #Assignment 3 - uncomment
+    #print(calculate_avg)                   #Assignment 4 - not finished
