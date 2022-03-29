@@ -30,7 +30,7 @@ def percent_pg_movies():
     df1_filter = df1[(df1['Year'] >= " 2001") & (df1['Year'] < " 2015")]                                    #Sorts the dataframe to only include data in a specific year range 2001-2015.   -> # normalize = true --> data_norm = (data - data.min())/ (data.max() - data.min())
 
     df1 = df1_filter['License'].value_counts(normalize=True).mul(100).round(1).astype(str) + '%'            #Counts all the different licenses and convert that into percentage.
-    print('PG movies between 2001 & 2015 = ' + df1.iloc[1])       
+    print('PG movies between 2001 & 2015 = ' + df1.iloc[1])                                                 #iloc[1] - is to get license PG and not any of the others.
 
 
 
