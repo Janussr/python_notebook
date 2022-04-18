@@ -5,52 +5,69 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 import numpy as np
+import os
+from urllib.parse import urlparse
+import re
 
 options = Options()
 options.headless = True
 browser = webdriver.Firefox(options=options)
 
+#Opgave 1 - Er det fredag?
+def erDetFredag():
+    browser.get('https://www.erdetfredag.dk')
+    browser.implicitly_wait(2)
+    browser.maximize_window()
 
-"""1. Lav en metode der tjekker om det er fredag ved at webscrape på følgende link (Metoden skal returnere Ja eller Nej)    https://www.erdetfredag.dk/"""
+    answer = browser.find_element_by_id('answer').text
+    print(answer)
 
-def is_it_friday():
- url = 'https://www.erdetfredag.dk'
+#erDetFredag()
 
- browser.get(url)
- browser.implicitly_wait(2)
+#Opgave 2 - top 5 opskrifter fra nemlig.com
+#Doesn't work yet
+def top5recipes():
+    browser.get('https://www.nemlig.com/opskrifter/mest-populaere')
+    browser.implicitly_wait(2)
+    browser.maximize_window()
 
- answer = browser.find_element_by_id('answer').text
- print(answer)
+    recipes = []
+    links = []
+    for i in range(1,6):
+        #Gets the first 5 recipe-items
+        recipes_container = browser.find_elements_by_xpath(f'//*[@id="page-content"]/div/leftmenupage/section/div[1]/render-partial/div/recipelist-showall/div/div/div[1]/recipelist-item[{i}]/div/div/div[2]/div[1]')
 
+        for recipe in recipes_container:
+            #Finds the href of the <a> tag of the recipe-item
+            link = recipe.find_element_by_xpath(f'//*[@id="page-content"]/div/leftmenupage/section/div[1]/render-partial/div/recipelist-showall/div/div/div[1]/recipelist-item[{i}]/div/div/div[2]/div[1]/a').get_attribute('href')
+            links.append(link)
 
-       
+    for link in links:
+        recipe_full_link = urlparse(link)
+        recipe_short_link = os.path.basename(recipe_full_link.path)
+        new_recipe_short_link = recipe_short_link.replace('-', ' ')
+        recipe_name = re.sub('[0123456789]', '', new_recipe_short_link)
+        recipes.append(recipe_name)
+    print(recipes)   
+    return recipes
 
-"""2. Lav en metode der returnerer top 5 mest populære opskrifter fra nemlig.com   https://www.nemlig.com/"""
+#top5recipes()
 
-def top_five_nemlig_recipes():
- browser.get('https://www.nemlig.com/')  #Get the website
- browser.implicitly_wait(2)              #wait two seconds I dont think its necessary
-
-
-
-"""3. Lav en metode der kan finde den totale pris af disse fire udvalgte varer på nemlig.com   (Gær, Minimælk, Banan, Tomatpasta)"""
-
-def price_of_four_items():
+#Opgave 3 - Totale pris på gær, minimælk, banan og tomatpasta fra nemlig.com
+def total_price():
     browser.get('https://www.nemlig.com')
     browser.implicitly_wait(2)
     browser.maximize_window()
 
-    food = ['gær', 'minimælk', 'banan', 'tomatpasta']
+    items = ['gær', 'minimælk', 'banan', 'tomatpasta']
     integer_prices = []
     decimal_prices = []
 
     #Search for each item in the items list
     searchField = browser.find_element_by_xpath('//*[@id="site-header-search-field-main"]')
     searchField.click()
-    for item in food:
+    for item in items:
         searchField.send_keys(item)
         searchField.submit()
         browser.implicitly_wait(2)
@@ -72,9 +89,32 @@ def price_of_four_items():
     print(str(total) + ' kr.')
     return total 
 
-"""4. Lav et barchart over alle Womens Fiction bøgerne på følgende hjemmeside. Sorter efter pris.   http://books.toscrape.com/index.html"""
+#total_price()
 
-if __name__ == "__main__":
-   is_it_friday()
-   #top_five_nemlig_recipes()
-   #price_of_four_items()
+#Opgave 4 - Lav et barchart over alle Womens Fiction bøger fra http://books.toscrape.com/catalogue/category/books/womens-fiction_9/index.html
+#Sorter efter pris
+def womens_fiction():
+    browser.get('http://books.toscrape.com/catalogue/category/books/womens-fiction_9/index.html')
+    browser.implicitly_wait(2)
+    browser.maximize_window()
+
+    titles = []
+    prices = []
+
+    #Get all titles and prices in the book list
+    booklist_container = browser.find_element_by_xpath('//*[@id="default"]/div/div/div/div/section/div[2]/ol')
+    booklist = booklist_container.find_elements_by_tag_name('li')
+    browser.implicitly_wait(5)
+    for book in booklist:
+        currentTitle = book.find_element_by_tag_name('img').get_attribute('alt')
+        titles.append(currentTitle)
+        browser.implicitly_wait(10)
+        price = float(book.find_element_by_class_name('price_color').text.replace('£', ''))
+        prices.append(price)
+    
+    book_dict = dict(zip(titles, prices))
+    #Sorts the dict based on the value instead of the key, hence 'x: x[1]' instead of 'x: x[0]'
+    book_dict_sorted = dict(sorted(book_dict.items(), key=lambda x: x[1]))
+    return book_dict_sorted
+
+#womens_fiction()
