@@ -10,7 +10,7 @@ df_movies = pd.read_csv("./Highest Holywood Grossing Movies.csv")
 #1. Find the top 10 highest grossing Disney movies measured by world sales
 def highest_grossing_world():
     certain_columns = df_movies[['Title', 'World Sales (in $)']]                         #Takes only the columns with these names
-    df_sort_movies = certain_columns.sort_values('World Sales (in $)',ascending=False)   #Sort by world sales from highest to lowest
+    df_sort_movies = certain_columns.sort_values('World Sales (in $)',ascending=False)   #Sort by world sales from highest to lowest (IKKE NØDVENDIGT DA NLARGEST SORTERE SÅ SORT_VALUES ER LIGEGYLDIG HER)
     top_ten = df_sort_movies.nlargest(n=10, columns=['World Sales (in $)'])              #Take top ten of the highest world sales
     print(top_ten)
 
@@ -44,8 +44,6 @@ def calculate_avg():
     df2 = df1['Genre'].str.replace(",", "")
     df2 = df1['Genre'].str.get_dummies(sep=",")
 
-
-
     print(df2)
 
 
@@ -53,5 +51,5 @@ def calculate_avg():
 if __name__ == "__main__":
     #print(highest_grossing_world())       #Assignment 1 - uncomment
     #print(pie_chart_distribution())       #Assignment 2 - check pie chart.ipynb
-    print(percent_pg_movies())                #Assignment 3 - uncomment
-    #print(calculate_avg)                   #Assignment 4 - not finished
+  #  print(percent_pg_movies())            #Assignment 3 - uncomment
+    print(calculate_avg())                  #Assignment 4 - not finished
