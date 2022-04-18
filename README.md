@@ -15,3 +15,5 @@ StudyPoint assignment .1 - path -> my_notebooks -> studypoints_handin -> handin_
       Opgave 2 kan pie chart, ses under "pie chart.ipynb"
 
 
+Studypoint assignment 2.
+      Første opgave virker.
