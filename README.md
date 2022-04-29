@@ -16,4 +16,13 @@ StudyPoint assignment .1 - path -> my_notebooks -> studypoints_handin -> handin_
 
 
 Studypoint assignment 2. - opg 23 på excel arket
-      Første opgave virker.
+      4/4 spørgsmål besvaret
+
+
+
+Studypoint assignment 3. - opg 32 på excel arket
+      3/4 spørgsmål besvaret
+      
+      Indkommenter linje 13 i handin_03.py for at download cars.csv.
+      Derefter kan det eksekveres i terminalen.
+      Der er også en notebook file med grafen.
